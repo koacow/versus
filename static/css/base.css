@@ -1,0 +1,239 @@
+/* ===================================================
+   VERSUS — base.css
+   Core design tokens, reset, typography, layout shell
+   Inspired by Kalshi: dark surfaces, green accent,
+   tight monospaced data feel, high contrast.
+   =================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* --- Tokens --- */
+:root {
+  --bg-page:        #0d0f11;
+  --bg-surface:     #141618;
+  --bg-elevated:    #1c1f22;
+  --bg-overlay:     #242729;
+  --bg-hover:       #2a2d31;
+
+  --accent:         #00c076;   /* Kalshi green */
+  --accent-dim:     #00995e;
+  --accent-muted:   rgba(0, 192, 118, 0.12);
+  --accent-border:  rgba(0, 192, 118, 0.35);
+
+  --danger:         #ff5a5a;
+  --danger-muted:   rgba(255, 90, 90, 0.12);
+  --warning:        #f5a623;
+  --warning-muted:  rgba(245, 166, 35, 0.12);
+
+  --text-primary:   #f0f2f4;
+  --text-secondary: #8c9199;
+  --text-tertiary:  #555b63;
+  --text-accent:    #00c076;
+
+  --border-subtle:  rgba(255, 255, 255, 0.06);
+  --border-default: rgba(255, 255, 255, 0.10);
+  --border-strong:  rgba(255, 255, 255, 0.18);
+
+  --radius-sm:  4px;
+  --radius-md:  8px;
+  --radius-lg: 12px;
+
+  --font-ui:   'Inter', system-ui, sans-serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  --nav-height: 52px;
+  --content-width: 900px;
+}
+
+/* --- Reset --- */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { font-size: 15px; }
+
+body {
+  font-family: var(--font-ui);
+  background: var(--bg-page);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+a {
+  color: var(--text-accent);
+  text-decoration: none;
+}
+a:hover { text-decoration: underline; }
+
+h1, h2, h3, h4 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
+h1 { font-size: 1.6rem;  color: var(--text-primary); }
+h2 { font-size: 1.25rem; color: var(--text-primary); }
+h3 { font-size: 1.05rem; color: var(--text-primary); }
+h4 { font-size: 0.9rem;  color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; }
+
+p   { color: var(--text-secondary); font-size: 0.93rem; }
+em  { color: var(--text-secondary); font-style: normal; }
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border-subtle);
+  margin: 1.5rem 0;
+}
+
+/* --- Layout shell --- */
+.vs-nav {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  height: var(--nav-height);
+  background: var(--bg-surface);
+  border-bottom: 1px solid var(--border-subtle);
+  display: flex;
+  align-items: center;
+  padding: 0 1.5rem;
+  gap: 0.25rem;
+}
+
+.vs-nav__brand {
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: 0.08em;
+  margin-right: 1.5rem;
+  text-decoration: none;
+}
+.vs-nav__brand:hover { text-decoration: none; color: var(--accent); }
+
+.vs-nav__link {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+  padding: 0.3rem 0.7rem;
+  border-radius: var(--radius-sm);
+  transition: color 0.15s, background 0.15s;
+  text-decoration: none;
+}
+.vs-nav__link:hover,
+.vs-nav__link.active {
+  color: var(--text-primary);
+  background: var(--bg-hover);
+  text-decoration: none;
+}
+
+.vs-nav__spacer { flex: 1; }
+
+.vs-nav__user {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.vs-page {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  padding: 2rem 1.5rem 4rem;
+}
+
+/* --- Surface cards --- */
+.vs-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1.25rem 1.5rem;
+}
+
+.vs-card--elevated {
+  background: var(--bg-elevated);
+  border-color: var(--border-default);
+}
+
+/* --- Chip / badge --- */
+.vs-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid;
+  letter-spacing: 0.03em;
+}
+
+.vs-chip--green {
+  color: var(--accent);
+  border-color: var(--accent-border);
+  background: var(--accent-muted);
+}
+.vs-chip--gray {
+  color: var(--text-secondary);
+  border-color: var(--border-default);
+  background: var(--bg-overlay);
+}
+.vs-chip--red {
+  color: var(--danger);
+  border-color: rgba(255, 90, 90, 0.35);
+  background: var(--danger-muted);
+}
+.vs-chip--amber {
+  color: var(--warning);
+  border-color: rgba(245, 166, 35, 0.35);
+  background: var(--warning-muted);
+}
+
+/* Status → chip color mapping */
+.vs-chip--status-predictions_open   { color: var(--accent); border-color: var(--accent-border); background: var(--accent-muted); }
+.vs-chip--status-completed          { color: var(--warning); border-color: rgba(245,166,35,.35); background: var(--warning-muted); }
+.vs-chip--status-draft              { color: var(--text-tertiary); border-color: var(--border-default); background: transparent; }
+
+/* --- Page title row --- */
+.vs-page-header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 1.75rem;
+  flex-wrap: wrap;
+}
+.vs-page-header h1 { flex: 0 0 auto; }
+
+/* --- Utility --- */
+.mono { font-family: var(--font-mono); }
+.text-accent { color: var(--accent); }
+.text-muted  { color: var(--text-secondary); }
+.text-dim    { color: var(--text-tertiary); }
+.text-danger { color: var(--danger); }
+
+.mt-1 { margin-top: 0.5rem; }
+.mt-2 { margin-top: 1rem; }
+.mt-3 { margin-top: 1.5rem; }
+.mb-1 { margin-bottom: 0.5rem; }
+.mb-2 { margin-bottom: 1rem; }
+.mb-3 { margin-bottom: 1.5rem; }
+
+.error-msg {
+  color: var(--danger);
+  font-size: 0.85rem;
+  padding: 0.6rem 0.85rem;
+  background: var(--danger-muted);
+  border: 1px solid rgba(255, 90, 90, 0.25);
+  border-radius: var(--radius-md);
+  margin-bottom: 1rem;
+}
+
+.success-banner {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: var(--accent-muted);
+  border: 1px solid var(--accent-border);
+  border-radius: var(--radius-lg);
+  margin-bottom: 1.5rem;
+  color: var(--accent);
+  font-weight: 500;
+}

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}VERSUS{% endblock %}</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/forms.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/tables.css') }}">
+  {% block extra_css %}{% endblock %}
+</head>
+<body>
+
+<nav class="vs-nav">
+  <a class="vs-nav__brand" href="/">VERSUS</a>
+  <a class="vs-nav__link" href="/browse">Browse</a>
+  <a class="vs-nav__link" href="/leaderboard">Leaderboard</a>
+  {% if current_user.is_authenticated %}
+    <a class="vs-nav__link" href="/create">Create</a>
+    <a class="vs-nav__link" href="/user/{{ current_user.id }}">Profile</a>
+    {% if current_user.id == 'admin' %}
+      <a class="vs-nav__link" href="/admin">Admin</a>
+    {% endif %}
+  {% endif %}
+  <div class="vs-nav__spacer"></div>
+  <div class="vs-nav__user">
+    {% if current_user.is_authenticated %}
+      {% for a in achievements %}
+        <span class="vs-chip vs-chip--green">{{ a }}</span>
+      {% endfor %}
+      <span style="font-size:.85rem;color:var(--text-secondary);margin-left:.5rem">{{ current_user.id }}</span>
+      <form method="post" action="/" style="margin:0">
+        <button type="submit" class="vs-btn vs-btn--ghost vs-btn--sm">Logout</button>
+      </form>
+    {% else %}
+      <a class="vs-nav__link" href="/login">Login</a>
+      <a class="vs-btn vs-btn--primary vs-btn--sm" href="/register">Register</a>
+    {% endif %}
+  </div>
+</nav>
+
+<main class="vs-page">
+  {% block content %}{% endblock %}
+</main>
+
+</body>
+</html>

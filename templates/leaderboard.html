@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+{% block title %}Leaderboard — VERSUS{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/leaderboard.css') }}">
+{% endblock %}
+{% block content %}
+
+<div class="vs-page-header">
+  <h1>Leaderboard</h1>
+</div>
+
+{% if rows %}
+  {% set top3 = rows[:3] %}
+  <div class="vs-podium">
+    {% for r in top3 %}
+      <div class="vs-podium__card {% if loop.index == 1 %}vs-podium__card--first{% endif %}">
+        <div class="vs-podium__rank">#{{ r[2] }}</div>
+        <div class="vs-podium__username">
+          <a href="/user/{{ r[0] }}" style="color:{% if loop.index == 1 %}var(--accent){% else %}var(--text-primary){% endif %}">
+            {{ r[0] }}
+          </a>
+        </div>
+        <div class="vs-podium__points">{{ r[1] }} pts</div>
+      </div>
+    {% endfor %}
+  </div>
+
+  <div class="vs-table-wrap">
+    <table class="vs-table">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Username</th>
+          <th style="text-align:right">Points</th>
+          <th style="text-align:right">Dense Rank</th>
+          <th style="text-align:right">Percentile</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in rows %}
+        <tr {% if r[0] == current_username %}class="vs-row--highlight"{% endif %}>
+          <td class="vs-rank {% if r[2] <= 3 %}vs-rank--top{% endif %}">{{ r[2] }}</td>
+          <td>
+            <a href="/user/{{ r[0] }}">{{ r[0] }}</a>
+            {% if r[0] == current_username %}
+              <span class="vs-chip vs-chip--green" style="margin-left:.4rem">you</span>
+            {% endif %}
+          </td>
+          <td style="text-align:right" class="vs-points-value">{{ r[1] }}</td>
+          <td style="text-align:right"><span class="vs-dense-rank">{{ r[3] }}</span></td>
+          <td style="text-align:right" class="vs-pct">{{ r[4] }}%</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% else %}
+  <p>No predictions scored yet.</p>
+{% endif %}
+
+{% endblock %}

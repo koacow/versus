@@ -1,0 +1,118 @@
+{% extends 'base.html' %}
+{% block title %}{{ user_row[1] }} — VERSUS{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+{% endblock %}
+{% block content %}
+
+{# user_row = (user_id, username, bio, created_at) #}
+
+<div class="vs-profile-header">
+  <div class="vs-avatar">{{ user_row[1][:2].upper() }}</div>
+  <div class="vs-profile-header__info">
+    <div class="vs-profile-header__username">{{ user_row[1] }}</div>
+    {% if user_row[2] %}
+      <div class="vs-profile-header__bio">{{ user_row[2] }}</div>
+    {% endif %}
+    <div class="vs-profile-header__joined">Joined {{ user_row[3].strftime('%B %Y') }}</div>
+  </div>
+  {% if current_uid and current_uid != user_row[0] %}
+    <div>
+      {% if already_follows %}
+        <form method="post" action="/unfollow/{{ user_row[1] }}" style="margin:0">
+          <button type="submit" class="vs-btn vs-btn--ghost vs-btn--sm">Unfollow</button>
+        </form>
+      {% else %}
+        <form method="post" action="/follow/{{ user_row[1] }}" style="margin:0">
+          <button type="submit" class="vs-btn vs-btn--primary vs-btn--sm">+ Follow</button>
+        </form>
+      {% endif %}
+    </div>
+  {% endif %}
+</div>
+
+<div class="vs-stat-grid">
+  <div class="vs-stat-card">
+    <div class="vs-stat-card__label">Predictions</div>
+    <div class="vs-stat-card__value">{{ pred_count }}</div>
+  </div>
+  <div class="vs-stat-card">
+    <div class="vs-stat-card__label">Correct</div>
+    <div class="vs-stat-card__value vs-stat-card__value--accent">{{ correct_count }}</div>
+  </div>
+  <div class="vs-stat-card">
+    <div class="vs-stat-card__label">Points</div>
+    <div class="vs-stat-card__value vs-stat-card__value--accent">{{ total_points }}</div>
+  </div>
+  <div class="vs-stat-card">
+    <div class="vs-stat-card__label">Brackets Hosted</div>
+    <div class="vs-stat-card__value">{{ hosted|length }}</div>
+  </div>
+</div>
+
+{% if achievements %}
+  <div class="vs-achievements">
+    {% for a in achievements %}
+      <div class="vs-achievement-pill">
+        <span class="vs-achievement-pill__name">{{ a[1] }}</span>
+        <span class="vs-achievement-pill__desc">· {{ a[2] }}</span>
+      </div>
+    {% endfor %}
+  </div>
+{% endif %}
+
+<div class="vs-section">
+  <h4>Followers ({{ followers|length }})</h4>
+  <div class="vs-user-list">
+    {% for f in followers %}
+      <a class="vs-user-pill" href="/user/{{ f }}">{{ f }}</a>
+    {% else %}
+      <span class="text-dim" style="font-size:.85rem">None yet.</span>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="vs-section">
+  <h4>Following ({{ following|length }})</h4>
+  <div class="vs-user-list">
+    {% for f in following %}
+      <a class="vs-user-pill" href="/user/{{ f }}">{{ f }}</a>
+    {% else %}
+      <span class="text-dim" style="font-size:.85rem">Not following anyone.</span>
+    {% endfor %}
+  </div>
+</div>
+
+<div class="vs-section">
+  <h4>Hosted Brackets</h4>
+  {% if hosted %}
+    <div class="vs-table-wrap">
+      <table class="vs-table">
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Status</th>
+            <th>Entrants</th>
+            <th>Created</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for b in hosted %}
+          <tr>
+            <td style="font-weight:500">{{ b[1] }}</td>
+            <td><span class="vs-chip vs-chip--status-{{ b[2] }}">{{ b[2] }}</span></td>
+            <td class="num">{{ b[3] }}</td>
+            <td class="num" style="color:var(--text-tertiary)">{{ b[4] }}</td>
+            <td><a class="vs-btn vs-btn--ghost vs-btn--sm" href="/bracket{{ b[0] }}">View</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% else %}
+    <p class="text-dim" style="font-size:.85rem">No brackets hosted yet.</p>
+  {% endif %}
+</div>
+
+{% endblock %}

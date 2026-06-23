@@ -1,0 +1,64 @@
+/* ===================================================
+   VERSUS — leaderboard.css
+   Podium callout + rankings table
+   =================================================== */
+
+/* Top-3 podium cards */
+.vs-podium {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 2rem;
+}
+
+.vs-podium__card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  padding: 1rem;
+  text-align: center;
+}
+.vs-podium__card--first {
+  border-color: var(--accent-border);
+  background: var(--accent-muted);
+}
+
+.vs-podium__rank {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  margin-bottom: 0.25rem;
+}
+.vs-podium__card--first .vs-podium__rank { color: var(--accent); }
+
+.vs-podium__username {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+}
+.vs-podium__points {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+}
+.vs-podium__card--first .vs-podium__points { color: var(--accent-dim); }
+
+/* Dense rank badge */
+.vs-dense-rank {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  background: var(--bg-overlay);
+  border-radius: var(--radius-sm);
+  padding: 1px 5px;
+}
+
+/* Points column */
+.vs-points-value {
+  font-family: var(--font-mono);
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--text-primary);
+}

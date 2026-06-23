@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% block title %}VERSUS{% endblock %}
+{% block content %}
+
+<div style="max-width:520px;margin:4rem auto 0;text-align:center">
+  <h1 class="mono" style="font-size:2.5rem;letter-spacing:.15em;margin-bottom:1rem">VERSUS</h1>
+  {% if message %}
+    <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2rem">{{ message }}</p>
+  {% else %}
+    <p style="font-size:1.05rem;color:var(--text-secondary);margin-bottom:2rem">
+      Tournament bracket prediction and voting.
+    </p>
+  {% endif %}
+
+  {% if name %}
+    <p style="color:var(--text-secondary);margin-bottom:2rem">
+      Hello, <span style="color:var(--text-primary);font-weight:500">{{ name }}</span>.
+    </p>
+    <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
+      <a class="vs-btn vs-btn--primary" href="/browse">Browse Brackets</a>
+      <a class="vs-btn vs-btn--ghost" href="/create">Create a Bracket</a>
+    </div>
+  {% else %}
+    <div style="display:flex;gap:.75rem;justify-content:center;flex-wrap:wrap">
+      <a class="vs-btn vs-btn--primary" href="/register">Get Started</a>
+      <a class="vs-btn vs-btn--ghost" href="/browse">Browse Brackets</a>
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}

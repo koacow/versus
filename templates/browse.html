@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% block title %}Browse — VERSUS{% endblock %}
+{% block content %}
+
+<div class="vs-page-header">
+  <h1>Brackets</h1>
+  {% if current_user.is_authenticated %}
+    <a class="vs-btn vs-btn--primary vs-btn--sm" href="/create">+ New Bracket</a>
+  {% endif %}
+</div>
+
+{% if brackets %}
+<div class="vs-table-wrap">
+  <table class="vs-table">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Host</th>
+        <th>Entrants</th>
+        <th>Status</th>
+        <th>Created</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for b in brackets %}
+      <tr>
+        <td style="font-weight:500">{{ b[1] }}</td>
+        <td><a href="/user/{{ b[5] }}">{{ b[5] }}</a></td>
+        <td class="num">{{ b[3] }}</td>
+        <td>
+          <span class="vs-chip vs-chip--status-{{ b[2] }}">{{ b[2] }}</span>
+        </td>
+        <td class="num" style="color:var(--text-tertiary)">{{ b[4] }}</td>
+        <td><a class="vs-btn vs-btn--ghost vs-btn--sm" href="/bracket{{ b[0] }}">View</a></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% else %}
+  <p>No brackets yet. <a href="/create">Create the first one.</a></p>
+{% endif %}
+
+{% endblock %}

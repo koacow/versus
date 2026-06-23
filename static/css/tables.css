@@ -1,0 +1,133 @@
+/* ===================================================
+   VERSUS — tables.css
+   Data tables: browse, leaderboard, matchup grid
+   =================================================== */
+
+.vs-table-wrap {
+  overflow-x: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-subtle);
+}
+
+.vs-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  background: var(--bg-surface);
+}
+
+.vs-table thead tr {
+  border-bottom: 1px solid var(--border-default);
+}
+
+.vs-table thead th {
+  padding: 0.65rem 1rem;
+  text-align: left;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  background: var(--bg-elevated);
+}
+
+.vs-table thead th:first-child { border-radius: var(--radius-lg) 0 0 0; }
+.vs-table thead th:last-child  { border-radius: 0 var(--radius-lg) 0 0; }
+
+.vs-table tbody tr {
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background 0.1s;
+}
+.vs-table tbody tr:last-child { border-bottom: none; }
+.vs-table tbody tr:hover { background: var(--bg-hover); }
+
+.vs-table tbody td {
+  padding: 0.75rem 1rem;
+  color: var(--text-primary);
+  vertical-align: middle;
+}
+
+/* Numeric columns — monospace alignment */
+.vs-table .num {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  text-align: right;
+  color: var(--text-secondary);
+}
+
+/* Vote count bars */
+.vs-vote-bar {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.vs-vote-bar__track {
+  flex: 1;
+  height: 4px;
+  background: var(--bg-overlay);
+  border-radius: 2px;
+  overflow: hidden;
+}
+.vs-vote-bar__fill {
+  height: 100%;
+  background: var(--accent);
+  border-radius: 2px;
+  transition: width 0.3s ease;
+}
+.vs-vote-bar__fill--b { background: var(--text-tertiary); }
+.vs-vote-bar__label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-secondary);
+  min-width: 2ch;
+  text-align: right;
+}
+
+/* Highlighted row (e.g. current user on leaderboard) */
+.vs-table tbody tr.vs-row--highlight {
+  background: var(--accent-muted);
+}
+.vs-table tbody tr.vs-row--highlight td { color: var(--accent); }
+.vs-table tbody tr.vs-row--highlight:hover { background: rgba(0,192,118,0.18); }
+
+/* Winner cell */
+.vs-winner-cell {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* TBD / empty cells */
+.vs-tbd {
+  color: var(--text-tertiary);
+  font-style: italic;
+  font-size: 0.82rem;
+}
+
+/* Round separator header row */
+.vs-table-round-header td {
+  padding: 0.4rem 1rem;
+  font-size: 0.72rem;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+/* Rank column */
+.vs-rank {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+.vs-rank--top { color: var(--accent); }
+
+/* Percentile pill */
+.vs-pct {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+}

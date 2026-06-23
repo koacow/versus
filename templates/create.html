@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block title %}Create Bracket — VERSUS{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bracket.css') }}">
+{% endblock %}
+{% block content %}
+
+<div style="max-width:540px">
+  <div class="vs-page-header">
+    <h1>New Bracket</h1>
+  </div>
+  <p class="text-muted" style="margin-bottom:1.5rem">Seed 1 plays seed 2, seed 3 plays seed 4, and so on.</p>
+
+  {% if error %}
+    <div class="error-msg">{{ error }}</div>
+  {% endif %}
+
+  <form method="post" action="/create">
+    <div class="vs-field">
+      <label for="title">Title</label>
+      <input type="text" id="title" name="title" required>
+    </div>
+    <div class="vs-field">
+      <label for="description">Description <span style="color:var(--text-tertiary);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+      <input type="text" id="description" name="description">
+    </div>
+    <div class="vs-field">
+      <label for="entrant_count">Entrant Count</label>
+      <select id="entrant_count" name="entrant_count" onchange="renderEntrantFields()">
+        <option value="4">4</option>
+        <option value="8" selected>8</option>
+        <option value="16">16</option>
+        <option value="32">32</option>
+      </select>
+    </div>
+
+    <div id="entrant_fields" style="margin-bottom:1.25rem"></div>
+
+    <button type="submit" class="vs-btn vs-btn--primary">Create Bracket</button>
+  </form>
+</div>
+
+<script>
+  function renderEntrantFields() {
+    var n = parseInt(document.getElementById('entrant_count').value);
+    var html = '<h4 style="margin-bottom:.75rem">Entrants</h4>';
+    for (var i = 1; i <= n; i++) {
+      html += '<div class="vs-field"><label>Seed ' + i + '</label>';
+      html += '<input type="text" name="entrant_' + i + '" required></div>';
+    }
+    document.getElementById('entrant_fields').innerHTML = html;
+  }
+  renderEntrantFields();
+</script>
+
+{% endblock %}

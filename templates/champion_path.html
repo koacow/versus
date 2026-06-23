@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+{% block title %}Champion Path — {{ bracket[1] }}{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bracket.css') }}">
+{% endblock %}
+{% block content %}
+
+<div class="vs-champion-banner" style="margin-bottom:1.5rem">
+  <div>
+    <div class="vs-champion-banner__label">Champion · {{ bracket[1] }}</div>
+    <div class="vs-champion-banner__name">{{ champion_name }}</div>
+  </div>
+  <a class="vs-btn vs-btn--ghost vs-btn--sm" href="/bracket{{ bracket[0] }}">← Back to Bracket</a>
+</div>
+
+<div class="vs-page-header">
+  <h1>Champion Path</h1>
+</div>
+<p class="text-muted" style="margin-bottom:1.5rem">
+  Every matchup {{ champion_name }} won, from Round 1 to the Final.
+</p>
+
+{% for p in path %}
+  {% set total = p[6] + p[7] %}
+  {% set a_pct = ((p[6] / total) * 100)|round|int if total > 0 else 50 %}
+  {% set b_pct = 100 - a_pct %}
+
+  <div class="vs-round-label"><h3>Round {{ p[1] }}</h3></div>
+  <div class="vs-matchup">
+    <div class="vs-matchup__header">
+      <span class="vs-matchup__slot-label">Slot {{ p[2] }}</span>
+      <span style="font-size:.75rem;font-weight:500;color:var(--accent)">{{ p[5] }} won</span>
+    </div>
+    <div class="vs-matchup__body">
+      <div class="vs-entrant-row {% if p[5] == p[3] %}vs-entrant-row--winner{% endif %}">
+        <span class="vs-entrant-row__name">{{ p[3] }}</span>
+        <div class="vs-entrant-row__bar">
+          <div class="vs-vote-bar">
+            <div class="vs-vote-bar__track">
+              <div class="vs-vote-bar__fill" style="width:{{ a_pct }}%"></div>
+            </div>
+          </div>
+        </div>
+        <span class="vs-entrant-row__votes">{{ p[6] }}</span>
+        <span></span>
+      </div>
+      <div class="vs-entrant-row {% if p[5] == p[4] %}vs-entrant-row--winner{% endif %}">
+        <span class="vs-entrant-row__name">{{ p[4] }}</span>
+        <div class="vs-entrant-row__bar">
+          <div class="vs-vote-bar">
+            <div class="vs-vote-bar__track">
+              <div class="vs-vote-bar__fill vs-vote-bar__fill--b" style="width:{{ b_pct }}%"></div>
+            </div>
+          </div>
+        </div>
+        <span class="vs-entrant-row__votes">{{ p[7] }}</span>
+        <span></span>
+      </div>
+    </div>
+  </div>
+{% endfor %}
+
+{% endblock %}

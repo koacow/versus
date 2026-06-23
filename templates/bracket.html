@@ -1,0 +1,195 @@
+{% extends 'base.html' %}
+{% block title %}{{ bracket[1] }} — VERSUS{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/bracket.css') }}">
+{% endblock %}
+{% block content %}
+
+{# bracket = (bracket_id, title, description, status, entrant_count, host_username, host_id) #}
+{# matchup = (matchup_id, round, slot, a_name, b_name, winner_name, votes_a, votes_b, a_id, b_id, winner_id) #}
+
+{% if bracket[3] == 'completed' and champion %}
+  <div class="vs-champion-banner">
+    <div>
+      <div class="vs-champion-banner__label">Champion</div>
+      <div class="vs-champion-banner__name">{{ champion }}</div>
+    </div>
+    <a class="vs-btn vs-btn--ghost vs-btn--sm" href="/bracket{{ bracket[0] }}/champion_path">
+      View Champion Path →
+    </a>
+  </div>
+{% endif %}
+
+<div class="vs-page-header">
+  <h1>{{ bracket[1] }}</h1>
+  <span class="vs-chip vs-chip--status-{{ bracket[3] }}">{{ bracket[3] }}</span>
+</div>
+
+<div class="vs-bracket-meta">
+  <span>Host: <a href="/user/{{ bracket[5] }}">{{ bracket[5] }}</a></span>
+  <span>·</span>
+  <span>{{ bracket[4] }} entrants</span>
+  {% if bracket[2] %}
+    <span>·</span>
+    <span>{{ bracket[2] }}</span>
+  {% endif %}
+</div>
+
+{% if is_host %}
+  <div class="vs-host-controls">
+    <span style="font-size:.8rem;color:var(--text-tertiary);align-self:center;margin-right:.25rem">Host controls:</span>
+    {% if bracket[3] == 'predictions_open' %}
+      <form method="post" action="/bracket{{ bracket[0] }}/start" style="margin:0">
+        <button type="submit" class="vs-btn vs-btn--primary vs-btn--sm">
+          Close Predictions &amp; Start Round 1
+        </button>
+      </form>
+    {% elif bracket[3].startswith('round_') %}
+      <form method="post" action="/bracket{{ bracket[0] }}/close_round" style="margin:0">
+        <button type="submit" class="vs-btn vs-btn--primary vs-btn--sm">
+          Close {{ bracket[3]|replace('_',' ')|title }}
+        </button>
+      </form>
+    {% endif %}
+  </div>
+{% endif %}
+
+{% if bracket[3] == 'predictions_open' and uid %}
+  <div class="vs-prediction-section">
+    <h3>Submit Your Predictions</h3>
+    <form method="post" action="/bracket{{ bracket[0] }}/predict">
+      {% for m in matchups %}
+        {% if m[1] == 1 %}
+          <div class="vs-pick-row">
+            <div class="vs-pick-row__label">Slot {{ m[2] }}: {{ m[3] or '(TBD)' }} vs {{ m[4] or '(TBD)' }}</div>
+            {% if m[0] in user_preds %}
+              <span style="font-size:.85rem;color:var(--accent)">✓ Pick submitted</span>
+            {% else %}
+              <div class="vs-radio-group">
+                <div class="vs-radio-option">
+                  <input type="radio" id="pred_{{ m[0] }}_a" name="pred_{{ m[0] }}" value="{{ m[8] }}" required>
+                  <label for="pred_{{ m[0] }}_a">{{ m[3] }}</label>
+                </div>
+                <div class="vs-radio-option">
+                  <input type="radio" id="pred_{{ m[0] }}_b" name="pred_{{ m[0] }}" value="{{ m[9] }}">
+                  <label for="pred_{{ m[0] }}_b">{{ m[4] }}</label>
+                </div>
+              </div>
+            {% endif %}
+          </div>
+        {% endif %}
+      {% endfor %}
+      <button type="submit" class="vs-btn vs-btn--primary">Submit Predictions</button>
+    </form>
+  </div>
+{% endif %}
+
+{% set ns = namespace(current_round=0) %}
+{% for m in matchups %}
+  {% if m[1] != ns.current_round %}
+    {% set ns.current_round = m[1] %}
+    <div class="vs-round-label"><h3>Round {{ m[1] }}</h3></div>
+  {% endif %}
+
+  {% set is_active_round = bracket[3] == 'round_' ~ m[1] %}
+  {% set a_pct = ((m[6] / (m[6] + m[7])) * 100)|round|int if (m[6] + m[7]) > 0 else 50 %}
+  {% set b_pct = 100 - a_pct %}
+
+  <div class="vs-matchup">
+    <div class="vs-matchup__header">
+      <span class="vs-matchup__slot-label">Slot {{ m[2] }}</span>
+      {% if m[5] %}
+        <span style="font-size:.75rem;font-weight:500;color:var(--accent)">{{ m[5] }} won</span>
+      {% elif is_active_round %}
+        <span class="vs-chip vs-chip--green">Voting open</span>
+      {% endif %}
+    </div>
+
+    <div class="vs-matchup__body">
+      {# Entrant A row #}
+      {% set a_is_winner = m[10] == m[8] and m[5] %}
+      {% set a_predicted = m[0] in user_preds and user_preds[m[0]] == m[8] %}
+      <div class="vs-entrant-row
+        {% if a_is_winner %}vs-entrant-row--winner{% endif %}
+        {% if a_predicted %}vs-entrant-row--predicted{% endif %}">
+        <span class="vs-entrant-row__name {% if not m[3] %}vs-entrant-row__name--tbd{% endif %}">
+          {{ m[3] or '(TBD)' }}
+          {% if a_predicted %}<span style="font-size:.7rem;color:var(--accent);margin-left:.3rem">your pick</span>{% endif %}
+        </span>
+        <div class="vs-entrant-row__bar">
+          <div class="vs-vote-bar">
+            <div class="vs-vote-bar__track">
+              <div class="vs-vote-bar__fill" style="width:{{ a_pct }}%"></div>
+            </div>
+          </div>
+        </div>
+        <span class="vs-entrant-row__votes">{{ m[6] }}</span>
+        {% if uid and is_active_round and m[0] not in user_votes and not m[5] and m[8] %}
+          <form method="post" action="/bracket{{ bracket[0] }}/vote/{{ m[0] }}" style="margin:0">
+            <button type="submit" name="entrant_id" value="{{ m[8] }}" class="vs-entrant-row__vote-btn">
+              Vote
+            </button>
+          </form>
+        {% elif m[0] in user_votes %}
+          <span class="vs-voted-badge">✓</span>
+        {% else %}
+          <span></span>
+        {% endif %}
+      </div>
+
+      {# Entrant B row #}
+      {% set b_is_winner = m[10] == m[9] and m[5] %}
+      {% set b_predicted = m[0] in user_preds and user_preds[m[0]] == m[9] %}
+      <div class="vs-entrant-row
+        {% if b_is_winner %}vs-entrant-row--winner{% endif %}
+        {% if b_predicted %}vs-entrant-row--predicted{% endif %}">
+        <span class="vs-entrant-row__name {% if not m[4] %}vs-entrant-row__name--tbd{% endif %}">
+          {{ m[4] or '(TBD)' }}
+          {% if b_predicted %}<span style="font-size:.7rem;color:var(--accent);margin-left:.3rem">your pick</span>{% endif %}
+        </span>
+        <div class="vs-entrant-row__bar">
+          <div class="vs-vote-bar">
+            <div class="vs-vote-bar__track">
+              <div class="vs-vote-bar__fill vs-vote-bar__fill--b" style="width:{{ b_pct }}%"></div>
+            </div>
+          </div>
+        </div>
+        <span class="vs-entrant-row__votes">{{ m[7] }}</span>
+        {% if uid and is_active_round and m[0] not in user_votes and not m[5] and m[9] %}
+          <form method="post" action="/bracket{{ bracket[0] }}/vote/{{ m[0] }}" style="margin:0">
+            <button type="submit" name="entrant_id" value="{{ m[9] }}" class="vs-entrant-row__vote-btn">
+              Vote
+            </button>
+          </form>
+        {% elif m[0] not in user_votes %}
+          <span></span>
+        {% endif %}
+      </div>
+    </div>
+
+    {% if m[1] == 1 %}
+      <div class="vs-comments">
+        <div class="vs-comments__heading">Comments</div>
+        {% if comments_by_matchup[m[0]] %}
+          {% for c in comments_by_matchup[m[0]] %}
+            <div class="vs-comment">
+              <a class="vs-comment__author" href="/user/{{ c[1] }}">{{ c[1] }}</a>
+              <span class="vs-comment__body">{{ c[0] }}</span>
+              <span class="vs-comment__time">{{ c[2].strftime('%b %d') }}</span>
+            </div>
+          {% endfor %}
+        {% else %}
+          <p style="font-size:.82rem;color:var(--text-tertiary);margin-bottom:.5rem">No comments yet.</p>
+        {% endif %}
+        {% if uid %}
+          <form class="vs-comment-form" method="post" action="/bracket{{ bracket[0] }}/comment/{{ m[0] }}">
+            <input type="text" name="body" placeholder="Add a comment…">
+            <button type="submit" class="vs-btn vs-btn--ghost vs-btn--sm">Post</button>
+          </form>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+{% endfor %}
+
+{% endblock %}

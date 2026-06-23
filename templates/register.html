@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% block title %}Register — VERSUS{% endblock %}
+{% block content %}
+
+<div class="vs-form-card">
+  <h2>Create Account</h2>
+  {% if error %}
+    <div class="error-msg">{{ error }}</div>
+  {% endif %}
+  <form method="post" action="/register">
+    <div class="vs-field">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" required autocomplete="username">
+    </div>
+    <div class="vs-field">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" required autocomplete="email">
+    </div>
+    <div class="vs-field">
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required autocomplete="new-password">
+    </div>
+    <div class="vs-field">
+      <label for="bio">Bio <span style="color:var(--text-tertiary);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label>
+      <input type="text" id="bio" name="bio">
+    </div>
+    <button type="submit" class="vs-btn vs-btn--primary vs-btn--full" style="margin-top:.5rem">Create Account</button>
+  </form>
+  <p style="margin-top:1.25rem;font-size:.85rem;text-align:center">
+    Already registered? <a href="/login">Login</a>
+  </p>
+</div>
+
+{% endblock %}

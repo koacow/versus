@@ -1,0 +1,83 @@
+/* ===================================================
+   VERSUS — admin.css
+   Admin SQL console
+   =================================================== */
+
+.vs-admin-console {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.vs-admin-console__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  background: var(--bg-elevated);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.vs-admin-console__title {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+}
+
+.vs-admin-console textarea {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  background: #0a0c0e;
+  border: none;
+  border-radius: 0;
+  border-bottom: 1px solid var(--border-subtle);
+  color: #c9d1d9;
+  padding: 1rem;
+  min-height: 140px;
+  resize: vertical;
+  line-height: 1.6;
+}
+.vs-admin-console textarea:focus {
+  box-shadow: none;
+  border-color: var(--accent);
+  outline: none;
+}
+
+.vs-admin-console__actions {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  background: var(--bg-elevated);
+}
+
+/* Result table inside admin inherits vs-table but with tighter font */
+.vs-admin-result {
+  overflow-x: auto;
+}
+.vs-admin-result .vs-table {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+}
+.vs-admin-result .vs-table td {
+  max-width: 260px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Syntax color hints for output values */
+.vs-admin-null  { color: var(--text-tertiary); font-style: italic; }
+.vs-admin-num   { color: #79c0ff; }
+.vs-admin-str   { color: #a5d6a7; }
+
+.vs-admin-error {
+  padding: 0.85rem 1rem;
+  background: var(--danger-muted);
+  border-top: 1px solid rgba(255,90,90,0.2);
+  color: var(--danger);
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  line-height: 1.5;
+}

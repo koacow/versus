@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block title %}Admin — VERSUS{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/admin.css') }}">
+{% endblock %}
+{% block content %}
+
+<div class="vs-page-header">
+  <h1>SQL Console</h1>
+  <span class="vs-chip vs-chip--red">admin only</span>
+</div>
+
+<div class="vs-admin-console">
+  <div class="vs-admin-console__toolbar">
+    <span class="vs-admin-console__title">versus · live database</span>
+  </div>
+  <form method="post" action="/admin">
+    <textarea name="sql" rows="7" spellcheck="false" placeholder="SELECT * FROM Users LIMIT 10;">{{ sql }}</textarea>
+    <div class="vs-admin-console__actions">
+      <button type="submit" class="vs-btn vs-btn--primary vs-btn--sm">Run Query</button>
+    </div>
+  </form>
+
+  {% if error %}
+    <div class="vs-admin-error">{{ error }}</div>
+  {% endif %}
+
+  {% if result %}
+    <div class="vs-admin-result">
+      <table class="vs-table">
+        <thead>
+          <tr>
+            {% for c in result.cols %}
+              <th>{{ c }}</th>
+            {% endfor %}
+          </tr>
+        </thead>
+        <tbody>
+          {% for row in result.rows %}
+          <tr>
+            {% for cell in row %}
+              <td>{% if cell is none %}<span class="vs-admin-null">NULL</span>{% else %}{{ cell }}{% endif %}</td>
+            {% endfor %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  {% endif %}
+</div>
+
+{% endblock %}
