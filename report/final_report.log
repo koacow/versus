@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.9.6)  23 JUN 2026 17:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.26 (TeX Live 2024) (preloaded format=pdflatex 2024.9.6)  23 JUN 2026 17:30
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -219,236 +219,236 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (/usr/local/texlive/2024/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Live
 ))
-LaTeX Font Info:    Trying to load font information for U+msa on input line 32.
- (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
-File: umsa.fd 2013/01/14 v3.01 AMS symbols A
-)
-LaTeX Font Info:    Trying to load font information for U+msb on input line 32.
- (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
-File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
-Underfull \hbox (badness 10000) in paragraph at lines 51--51
-[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 55--55
-[]\OT1/cmr/m/n/10.95 ENUM('draft',
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 55--55
-\OT1/cmr/m/n/10.95 'pre-dic-tions[]open',
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 55--55
-\OT1/cmr/m/n/10.95 'round[]1', 'round[]2',
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 55--55
-\OT1/cmr/m/n/10.95 'round[]3', 'round[]4',
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 55--55
-\OT1/cmr/m/n/10.95 'round[]5', 'com-
- []
-
-
-Overfull \hbox (0.52382pt too wide) in paragraph at lines 57--57
-[]\OT1/cmr/m/n/10.95 prediction[]deadline| 
- []
-
-
-Underfull \hbox (badness 2142) in paragraph at lines 68--68
-[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$ \OT1/cmr/m/n/10.95 Brack-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 68--68
-\OT1/cmr/m/n/10.95 ets(bracket[]id), UNIQUE
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 69--69
-[]\OT1/cmr/m/n/10.95 NOT NULL, UNIQUE
- []
-
-
-Underfull \hbox (badness 2142) in paragraph at lines 82--82
-[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$ \OT1/cmr/m/n/10.95 Brack-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 82--82
-\OT1/cmr/m/n/10.95 ets(bracket[]id), UNIQUE
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 83--83
-[]\OT1/cmr/m/n/10.95 NOT NULL, UNIQUE
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 84--84
-[]\OT1/cmr/m/n/10.95 NOT NULL, UNIQUE
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 100--100
-[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 101--101
-[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
- []
-
-
-Overfull \hbox (2.67123pt too wide) in paragraph at lines 102--102
-[]\OT1/cmr/m/n/10.95 predicted[]winner[]id| 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 102--102
-[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$ \OT1/cmr/m/n/10.95 En-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 116--116
-[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 117--117
-[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
- []
-
-
-Overfull \hbox (3.87572pt too wide) in paragraph at lines 118--118
-[]\OT1/cmr/m/n/10.95 voted[]for[]entrant[]id| 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 118--118
-[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$ \OT1/cmr/m/n/10.95 En-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 118--118
-\OT1/cmr/m/n/10.95 trants(entrant[]id), UNIQUE
- []
-
-
-Overfull \hbox (7.35951pt too wide) in paragraph at lines 128--128
-[]\OT1/cmr/m/n/10.95 ENUM('bracket[]maker',
- []
-
-
-Overfull \hbox (2.9652pt too wide) in paragraph at lines 140--140
-[]\OT1/cmr/m/n/10.95 PK/FK| 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 140--140
-[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
- []
-
-
-Overfull \hbox (7.35951pt too wide) in paragraph at lines 141--141
-[]\OT1/cmr/m/n/10.95 ENUM('bracket[]maker',
- []
-
-
-Overfull \hbox (2.9652pt too wide) in paragraph at lines 141--141
-[]\OT1/cmr/m/n/10.95 PK/FK| 
- []
-
-
-Overfull \hbox (2.9652pt too wide) in paragraph at lines 152--152
-[]\OT1/cmr/m/n/10.95 PK/FK| 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 152--152
-[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
- []
-
-
-Overfull \hbox (2.9652pt too wide) in paragraph at lines 153--153
-[]\OT1/cmr/m/n/10.95 PK/FK| 
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
-[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 165--165
-[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 166--166
-[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
- []
-
-[1
-
-{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2]
-Overfull \hbox (1.63737pt too wide) in paragraph at lines 222--222
+Overfull \hbox (1.63737pt too wide) in paragraph at lines 75--75
 []    \OT1/cmtt/m/n/10.95 @app.route('/bracket<int:bracket_id>/vote/<int:matchup_id>', methods=['POST'])[] 
  []
 
 
-Overfull \hbox (162.60063pt too wide) in paragraph at lines 222--222
+Overfull \hbox (162.60063pt too wide) in paragraph at lines 75--75
 []                \OT1/cmtt/m/n/10.95 "SELECT entrant_a_id, entrant_b_id FROM Matchups WHERE matchup_id = '{0}'".format(matchup_id))[] 
  []
 
-[3]
-Overfull \hbox (122.35982pt too wide) in paragraph at lines 222--222
+[1
+
+{/usr/local/texlive/2024/texmf-var/fonts/map/pdftex/updmap/pdftex.map}]
+Overfull \hbox (122.35982pt too wide) in paragraph at lines 75--75
 []            \OT1/cmtt/m/n/10.95 INSERT INTO Votes (user_id, matchup_id, voted_for_entrant_id) VALUES ('{0}', '{1}', '{2}');[] 
  []
 
 
-Overfull \hbox (220.08751pt too wide) in paragraph at lines 222--222
+Overfull \hbox (220.08751pt too wide) in paragraph at lines 75--75
 []                \OT1/cmtt/m/n/10.95 cursor.execute("UPDATE Matchups SET votes_a = votes_a + 1 WHERE matchup_id = '{0}';".format(matchup_id))[] 
  []
 
 
-Overfull \hbox (220.08751pt too wide) in paragraph at lines 222--222
+Overfull \hbox (220.08751pt too wide) in paragraph at lines 75--75
 []                \OT1/cmtt/m/n/10.95 cursor.execute("UPDATE Matchups SET votes_b = votes_b + 1 WHERE matchup_id = '{0}';".format(matchup_id))[] 
  []
 
-[4]
-Overfull \hbox (70.62163pt too wide) in paragraph at lines 243--243
+
+Overfull \hbox (70.62163pt too wide) in paragraph at lines 94--94
 []        \OT1/cmtt/m/n/10.95 WHERE bracket_id = (SELECT bracket_id FROM Matchups WHERE matchup_id = NEW.matchup_id)[] 
  []
 
 
-Overfull \hbox (64.87294pt too wide) in paragraph at lines 243--243
+Overfull \hbox (64.87294pt too wide) in paragraph at lines 94--94
 []        \OT1/cmtt/m/n/10.95 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Predictions are closed for this bracket';[] 
  []
 
-[5]
-Overfull \hbox (30.38081pt too wide) in paragraph at lines 259--259
+
+Overfull \hbox (30.38081pt too wide) in paragraph at lines 110--110
 []    \OT1/cmtt/m/n/10.95 SET current_round = (SELECT round FROM Matchups WHERE matchup_id = NEW.matchup_id);[] 
  []
 
 
-Overfull \hbox (501.77321pt too wide) in paragraph at lines 259--259
+Overfull \hbox (501.77321pt too wide) in paragraph at lines 110--110
 []    \OT1/cmtt/m/n/10.95 IF (SELECT status FROM Brackets WHERE bracket_id = (SELECT bracket_id FROM Matchups WHERE matchup_id = NEW.matchup_id)) NOT IN (CONCAT('round_', current_round)) THEN[] 
  []
 
 
-Overfull \hbox (41.87819pt too wide) in paragraph at lines 259--259
+Overfull \hbox (41.87819pt too wide) in paragraph at lines 110--110
 []        \OT1/cmtt/m/n/10.95 SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Voting is not open for this matchup';[] 
  []
 
-[6] (./final_report.aux)
+[2]
+LaTeX Font Info:    Trying to load font information for U+msa on input line 120.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 120.
+ (/usr/local/texlive/2024/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+)
+Underfull \hbox (badness 10000) in paragraph at lines 139--139
+[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 143--143
+[]\OT1/cmr/m/n/10.95 ENUM('draft',
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 143--143
+\OT1/cmr/m/n/10.95 'pre-dic-tions[]open',
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 143--143
+\OT1/cmr/m/n/10.95 'round[]1', 'round[]2',
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 143--143
+\OT1/cmr/m/n/10.95 'round[]3', 'round[]4',
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 143--143
+\OT1/cmr/m/n/10.95 'round[]5', 'com-
+ []
+
+
+Overfull \hbox (0.52382pt too wide) in paragraph at lines 145--145
+[]\OT1/cmr/m/n/10.95 prediction[]deadline| 
+ []
+
+
+Underfull \hbox (badness 2142) in paragraph at lines 156--156
+[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$ \OT1/cmr/m/n/10.95 Brack-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 156--156
+\OT1/cmr/m/n/10.95 ets(bracket[]id), UNIQUE
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 157--157
+[]\OT1/cmr/m/n/10.95 NOT NULL, UNIQUE
+ []
+
+
+Underfull \hbox (badness 2142) in paragraph at lines 170--170
+[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$ \OT1/cmr/m/n/10.95 Brack-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 170--170
+\OT1/cmr/m/n/10.95 ets(bracket[]id), UNIQUE
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 171--171
+[]\OT1/cmr/m/n/10.95 NOT NULL, UNIQUE
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 172--172
+[]\OT1/cmr/m/n/10.95 NOT NULL, UNIQUE
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 188--188
+[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 189--189
+[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
+ []
+
+
+Overfull \hbox (2.67123pt too wide) in paragraph at lines 190--190
+[]\OT1/cmr/m/n/10.95 predicted[]winner[]id| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 190--190
+[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$ \OT1/cmr/m/n/10.95 En-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 204--204
+[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 205--205
+[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
+ []
+
+
+Overfull \hbox (3.87572pt too wide) in paragraph at lines 206--206
+[]\OT1/cmr/m/n/10.95 voted[]for[]entrant[]id| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--206
+[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$ \OT1/cmr/m/n/10.95 En-
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 206--206
+\OT1/cmr/m/n/10.95 trants(entrant[]id), UNIQUE
+ []
+
+
+Overfull \hbox (7.35951pt too wide) in paragraph at lines 216--216
+[]\OT1/cmr/m/n/10.95 ENUM('bracket[]maker',
+ []
+
+
+Overfull \hbox (2.9652pt too wide) in paragraph at lines 228--228
+[]\OT1/cmr/m/n/10.95 PK/FK| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 228--228
+[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
+ []
+
+
+Overfull \hbox (7.35951pt too wide) in paragraph at lines 229--229
+[]\OT1/cmr/m/n/10.95 ENUM('bracket[]maker',
+ []
+
+
+Overfull \hbox (2.9652pt too wide) in paragraph at lines 229--229
+[]\OT1/cmr/m/n/10.95 PK/FK| 
+ []
+
+
+Overfull \hbox (2.9652pt too wide) in paragraph at lines 240--240
+[]\OT1/cmr/m/n/10.95 PK/FK| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 240--240
+[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
+ []
+
+
+Overfull \hbox (2.9652pt too wide) in paragraph at lines 241--241
+[]\OT1/cmr/m/n/10.95 PK/FK| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 241--241
+[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 253--253
+[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 254--254
+[]\OT1/cmr/m/n/10.95 NOT NULL, FK $\OMS/cmsy/m/n/10.95 !$
+ []
+
+[3] [4] [5] [6] (./final_report.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-02-20>
@@ -457,13 +457,13 @@ L3 programming layer <2024-02-20>
 Here is how much of TeX's memory you used:
  3660 strings out of 474116
  55797 string characters out of 5743683
- 1972187 words of memory out of 5000000
+ 1973187 words of memory out of 5000000
  25997 multiletter control sequences out of 15000+600000
  564403 words of font info for 60 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 57i,11n,65p,349b,333s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 57i,11n,65p,349b,329s stack positions out of 10000i,1000n,20000p,200000b,200000s
 </usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/local/texlive/2024/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb>
-Output written on final_report.pdf (6 pages, 91192 bytes).
+Output written on final_report.pdf (6 pages, 90568 bytes).
 PDF statistics:
  48 PDF objects out of 1000 (max. 8388607)
  29 compressed objects within 1 object stream
