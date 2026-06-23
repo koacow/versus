@@ -464,18 +464,15 @@ def vote(bracket_id, matchup_id):
             raise ValueError("Matchup not found")
         a_id, b_id = row
 
-        # Record the vote (trigger enforces correct round)
-        cursor.execute(
-            "INSERT INTO Votes (user_id, matchup_id, voted_for_entrant_id) "
-            "VALUES ('{0}', '{1}', '{2}')".format(uid, matchup_id, entrant_id))
-
-        # Atomically increment the correct counter
+        cursor.execute("START TRANSACTION;")
+        cursor.execute("""
+        INSERT INTO Votes (user_id, matchup_id, voted_for_entrant_id) VALUES ('{0}', '{1}', '{2}');
+        """.format(uid, matchup_id, entrant_id))
         if int(entrant_id) == a_id:
-            cursor.execute(
-                "UPDATE Matchups SET votes_a = votes_a + 1 WHERE matchup_id = '{0}'".format(matchup_id))
+            cursor.execute("UPDATE Matchups SET votes_a = votes_a + 1 WHERE matchup_id = '{0}';".format(matchup_id))
         else:
-            cursor.execute(
-                "UPDATE Matchups SET votes_b = votes_b + 1 WHERE matchup_id = '{0}'".format(matchup_id))
+            cursor.execute("UPDATE Matchups SET votes_b = votes_b + 1 WHERE matchup_id = '{0}';".format(matchup_id))
+        cursor.execute("COMMIT;")
         conn.commit()
     except mysql.connector.Error:
         conn.rollback()
