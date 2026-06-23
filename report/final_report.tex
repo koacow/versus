@@ -1,0 +1,264 @@
+\documentclass[11pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{enumerate}
+\usepackage[norelsize, linesnumbered, ruled, lined, boxed, commentsnumbered]{algorithm2e}
+\usepackage{fullpage}
+\usepackage{graphicx}
+\pdfpagewidth 8.5in
+\pdfpageheight 11in 
+
+\topmargin 0in
+\oddsidemargin 0in
+\evensidemargin 0in
+
+\begin{document}
+
+\begin{center}
+    \textbf{VERSUS Project Final Report} \\
+    Khoa Cao \\
+    Due 6/23/2026
+\end{center}
+
+The Github repository containing the complete code and instructions on how to run the application is at https://www.github.com/koacow/versus.
+
+\section{Database Schema}
+
+\begin{table}[ht]
+\centering
+\caption{Users}
+\begin{tabular}{|p{3.2cm}|p{3.8cm}|p{1.2cm}|p{5.3cm}|}
+\hline
+Column & Type & Key & Constraints \\ \hline
+user\_id & INT & PK & AUTO\_INCREMENT \\ \hline
+username & VARCHAR(50) &  & NOT NULL, UNIQUE \\ \hline
+email & VARCHAR(255) &  & NOT NULL, UNIQUE \\ \hline
+password & VARCHAR(255) &  & NOT NULL \\ \hline
+bio & TEXT &  & NULL \\ \hline
+created\_at & DATETIME &  & NOT NULL, DEFAULT CURRENT\_TIMESTAMP \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Brackets}
+\begin{tabular}{|p{3.2cm}|p{3.8cm}|p{1.2cm}|p{5.3cm}|}
+\hline
+Column & Type & Key & Constraints \\ \hline
+bracket\_id & INT & PK & AUTO\_INCREMENT \\ \hline
+host\_id & INT & FK & NOT NULL, FK $\rightarrow$ Users(user\_id) \\ \hline
+title & VARCHAR(255) &  & NOT NULL \\ \hline
+description & TEXT &  & NULL \\ \hline
+entrant\_count & INT &  & NOT NULL, CHECK IN (4, 8, 16, 32) \\ \hline
+status & ENUM('draft', 'predictions\_open', 'round\_1', 'round\_2', 'round\_3', 'round\_4', 'round\_5', 'completed') &  & NOT NULL, DEFAULT 'predictions\_open' \\ \hline
+created\_at & DATETIME &  & NOT NULL, DEFAULT CURRENT\_TIMESTAMP \\ \hline
+prediction\_deadline & DATETIME &  & NULL \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Entrants}
+\begin{tabular}{|p{3.2cm}|p{3.8cm}|p{1.2cm}|p{5.3cm}|}
+\hline
+Column & Type & Key & Constraints \\ \hline
+entrant\_id & INT & PK & AUTO\_INCREMENT \\ \hline
+bracket\_id & INT & FK & NOT NULL, FK $\rightarrow$ Brackets(bracket\_id), UNIQUE (bracket\_id, seed) \\ \hline
+seed & INT &  & NOT NULL, UNIQUE (bracket\_id, seed) \\ \hline
+name & VARCHAR(255) &  & NOT NULL \\ \hline
+img\_url & VARCHAR(255) &  & NULL \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Matchups}
+\begin{tabular}{|p{3.2cm}|p{3.8cm}|p{1.2cm}|p{5.3cm}|}
+\hline
+Column & Type & Key & Constraints \\ \hline
+matchup\_id & INT & PK & AUTO\_INCREMENT \\ \hline
+bracket\_id & INT & FK & NOT NULL, FK $\rightarrow$ Brackets(bracket\_id), UNIQUE (bracket\_id, round, slot) \\ \hline
+round & INT &  & NOT NULL, UNIQUE (bracket\_id, round, slot) \\ \hline
+slot & INT &  & NOT NULL, UNIQUE (bracket\_id, round, slot) \\ \hline
+entrant\_a\_id & INT & FK & FK $\rightarrow$ Entrants(entrant\_id) \\ \hline
+entrant\_b\_id & INT & FK & FK $\rightarrow$ Entrants(entrant\_id) \\ \hline
+winner\_entrant\_id & INT & FK & FK $\rightarrow$ Entrants(entrant\_id) \\ \hline
+votes\_a & INT &  & NOT NULL, DEFAULT 0 \\ \hline
+votes\_b & INT &  & NOT NULL, DEFAULT 0 \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Predictions}
+\begin{tabular}{|p{3.2cm}|p{3.8cm}|p{1.2cm}|p{5.3cm}|}
+\hline
+Column & Type & Key & Constraints \\ \hline
+prediction\_id & INT & PK & AUTO\_INCREMENT \\ \hline
+user\_id & INT & FK & NOT NULL, FK $\rightarrow$ Users(user\_id) \\ \hline
+matchup\_id & INT & FK & NOT NULL, FK $\rightarrow$ Matchups(matchup\_id) \\ \hline
+predicted\_winner\_id & INT & FK & NOT NULL, FK $\rightarrow$ Entrants(entrant\_id) \\ \hline
+submitted\_at & DATETIME &  & NOT NULL, DEFAULT CURRENT\_TIMESTAMP \\ \hline
+is\_correct & BOOLEAN &  & NULL \\ \hline
+points\_earned & INT &  & NULL \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Votes}
+\begin{tabular}{|p{3.2cm}|p{3.8cm}|p{1.2cm}|p{5.3cm}|}
+\hline
+Column & Type & Key & Constraints \\ \hline
+vote\_id & INT & PK & AUTO\_INCREMENT \\ \hline
+user\_id & INT & FK & NOT NULL, FK $\rightarrow$ Users(user\_id) \\ \hline
+matchup\_id & INT & FK & NOT NULL, FK $\rightarrow$ Matchups(matchup\_id) \\ \hline
+voted\_for\_entrant\_id & INT & FK & NOT NULL, FK $\rightarrow$ Entrants(entrant\_id), UNIQUE (user\_id, matchup\_id) \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Achievements}
+\begin{tabular}{|p{3.2cm}|p{3.8cm}|p{1.2cm}|p{5.3cm}|}
+\hline
+Column & Type & Key & Constraints \\ \hline
+achievement\_code & ENUM('bracket\_maker', 'locked\_in') & PK & PRIMARY KEY \\ \hline
+name & VARCHAR(255) &  & NOT NULL \\ \hline
+description & TEXT &  & NOT NULL \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{User\_Achievements}
+\begin{tabular}{|p{3.2cm}|p{3.8cm}|p{1.2cm}|p{5.3cm}|}
+\hline
+Column & Type & Key & Constraints \\ \hline
+user\_id & INT & PK/FK & NOT NULL, FK $\rightarrow$ Users(user\_id), part of composite PK \\ \hline
+achievement\_code & ENUM('bracket\_maker', 'locked\_in') & PK/FK & NOT NULL, FK $\rightarrow$ Achievements(achievement\_code), part of composite PK \\ \hline
+achieved\_at & DATETIME &  & NOT NULL, DEFAULT CURRENT\_TIMESTAMP \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Follows}
+\begin{tabular}{|p{3.2cm}|p{3.8cm}|p{1.2cm}|p{5.3cm}|}
+\hline
+Column & Type & Key & Constraints \\ \hline
+follower\_id & INT & PK/FK & NOT NULL, FK $\rightarrow$ Users(user\_id), part of composite PK \\ \hline
+followed\_id & INT & PK/FK & NOT NULL, FK $\rightarrow$ Users(user\_id), part of composite PK, CHECK follower\_id $\ne$ followed\_id \\ \hline
+followed\_at & DATETIME &  & NOT NULL, DEFAULT CURRENT\_TIMESTAMP \\ \hline
+\end{tabular}
+\end{table}
+
+\begin{table}[ht]
+\centering
+\caption{Comments}
+\begin{tabular}{|p{3.2cm}|p{3.8cm}|p{1.2cm}|p{5.3cm}|}
+\hline
+Column & Type & Key & Constraints \\ \hline
+comment\_id & INT & PK & AUTO\_INCREMENT \\ \hline
+user\_id & INT & FK & NOT NULL, FK $\rightarrow$ Users(user\_id) \\ \hline
+matchup\_id & INT & FK & NOT NULL, FK $\rightarrow$ Matchups(matchup\_id) \\ \hline
+body & TEXT &  & NOT NULL \\ \hline
+created\_at & DATETIME &  & NOT NULL, DEFAULT CURRENT\_TIMESTAMP \\ \hline
+\end{tabular}
+\end{table}
+
+\newpage
+\section{What I Implemented}
+
+I extended the Versus skeleton code by adding the tables for predictions, votes, achievements, follows, and comments. I also created the two BEFORE INSERT
+triggers to enforce the integrity constraints for votes and predictions. Additionally, I added the AFTER INSERT trigger that awards achievements to users upon
+creating their first bracket and submitting their 10th prediction. I also implemented the stored procedure that closes a round, scores the predictions, 
+advances the winner, and updates the bracket status. This procedure is implemented as a single transaction to ensure data consistency between the Bracket and Matchups tables in the event of any errors.
+
+On the application side, I implemented the necessary routes and logic for user interaction as per the specifications, created the necessary HTML templates, and 
+created a simple and clean user interface using CSS (I have had extensive experience with CSS in previous projects). An extra feature I added was the ability 
+for users to search for other users, view their profiles, and follow them.
+
+\newpage
+\section{A Transaction}
+The add-vote transaction involves inserting a new vote into the Votes table while simultaneously updating the vote count for the selected entrant in the Matchups table. 
+This must be atomic to ensure that a vote the number of votes for an entrant in a matchup in the Votes table is consistent with the recorded
+number of votes for an entrant in the Matchups table. The transaction logic, which uses MySQL's transactional capabilities, is shown below.
+
+\begin{center}
+\begin{verbatim}
+    @app.route('/bracket<int:bracket_id>/vote/<int:matchup_id>', methods=['POST'])
+    @flask_login.login_required
+    def vote(bracket_id, matchup_id):
+        uid       = getUserIdFromUsername(flask_login.current_user.id)
+        entrant_id = request.form.get('entrant_id')
+        cursor = conn.cursor()
+        try:
+            # Determine which counter to bump before acquiring any lock
+            cursor.execute(
+                "SELECT entrant_a_id, entrant_b_id FROM Matchups WHERE matchup_id = '{0}'".format(matchup_id))
+            row = cursor.fetchone()
+            if not row:
+                raise ValueError("Matchup not found")
+            a_id, b_id = row
+
+            cursor.execute("START TRANSACTION;")
+            cursor.execute("""
+            INSERT INTO Votes (user_id, matchup_id, voted_for_entrant_id) VALUES ('{0}', '{1}', '{2}');
+            """.format(uid, matchup_id, entrant_id))
+            if int(entrant_id) == a_id:
+                cursor.execute("UPDATE Matchups SET votes_a = votes_a + 1 WHERE matchup_id = '{0}';".format(matchup_id))
+            else:
+                cursor.execute("UPDATE Matchups SET votes_b = votes_b + 1 WHERE matchup_id = '{0}';".format(matchup_id))
+            cursor.execute("COMMIT;")
+            conn.commit()
+        except mysql.connector.Error:
+            conn.rollback()
+        cursor.close()
+        return redirect(url_for('view_bracket', bracket_id=bracket_id))
+
+\end{verbatim}
+\end{center}
+
+\newpage
+
+\section{Triggers}
+
+\subsection*{Prediction gate}
+\begin{verbatim}
+CREATE TRIGGER prediction_open_check
+BEFORE INSERT ON Predictions
+FOR EACH ROW
+BEGIN
+    IF (
+        SELECT status 
+        FROM Brackets 
+        WHERE bracket_id = (SELECT bracket_id FROM Matchups WHERE matchup_id = NEW.matchup_id)
+        ) NOT IN ('predictions_open') THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Predictions are closed for this bracket';
+    END IF;
+END
+\end{verbatim}
+
+This trigger blocks any prediction inserted after the bracket has left the predictions\_open state, and it lives in the database so the rule is enforced consistently even if the Flask app is bypassed.
+
+\subsection*{Vote gate}
+\begin{verbatim}
+CREATE TRIGGER vote_current_round_check
+BEFORE INSERT ON Votes
+FOR EACH ROW
+BEGIN
+    DECLARE current_round INT;
+    SET current_round = (SELECT round FROM Matchups WHERE matchup_id = NEW.matchup_id);
+    IF (SELECT status FROM Brackets WHERE bracket_id = (SELECT bracket_id FROM Matchups WHERE matchup_id = NEW.matchup_id)) NOT IN (CONCAT('round_', current_round)) THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'Voting is not open for this matchup';
+    END IF;
+END
+\end{verbatim}
+
+This trigger blocks votes for a matchup unless the bracket is currently in the matching round state. Similar to the prediction gate, it belongs in the database because it protects data integrity at the storage layer, 
+ensuring that the voting rules are consistently enforced across all access points to the database.
+
+\end{document}
