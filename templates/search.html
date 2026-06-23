@@ -1,0 +1,52 @@
+{% extends "base.html" %}
+{% block title %}Search — VERSUS{% endblock %}
+{% block extra_css %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/search.css') }}">
+{% endblock %}
+{% block content %}
+
+<div class="vs-page-header">
+  <h1>Search Users</h1>
+</div>
+
+<form class="vs-search-form" method="get" action="/search">
+  <input type="text" name="q" value="{{ q }}" placeholder="Search by username&hellip;" autofocus>
+  <button type="submit" class="vs-btn vs-btn--primary">Search</button>
+</form>
+
+{% if q %}
+  {% if results %}
+    <div class="vs-search-results">
+      {% for user_id, username, bio in results %}
+        <div class="vs-search-result">
+          <div class="vs-avatar vs-avatar--sm">{{ username[0] }}</div>
+          <div class="vs-search-result__info">
+            <a class="vs-search-result__username" href="/user/{{ username }}">{{ username }}</a>
+            {% if bio %}
+              <div class="vs-search-result__bio">{{ bio }}</div>
+            {% endif %}
+          </div>
+          {% if current_uid and user_id != current_uid %}
+            {% if user_id in following_ids %}
+              <form method="post" action="/unfollow/{{ username }}">
+                <button type="submit" class="vs-btn vs-btn--ghost vs-btn--sm">Following</button>
+              </form>
+            {% else %}
+              <form method="post" action="/follow/{{ username }}">
+                <button type="submit" class="vs-btn vs-btn--primary vs-btn--sm">Follow</button>
+              </form>
+            {% endif %}
+          {% elif not current_uid %}
+            <a class="vs-btn vs-btn--ghost vs-btn--sm" href="/login">Login to follow</a>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="mt-2">No users found matching &ldquo;{{ q }}&rdquo;.</p>
+  {% endif %}
+{% else %}
+  <p class="mt-2 text-dim">Enter a username above to find other users.</p>
+{% endif %}
+
+{% endblock %}

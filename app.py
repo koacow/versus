@@ -22,7 +22,7 @@ DB_NAME = os.getenv('DB_NAME')
 DB_HOST = os.getenv('DB_HOST')
 
 app = Flask(__name__)
-app.secret_key = os.getenv('SECRET_KEY')
+app.secret_key = 'super secret string'  # Change this in production!
 
 def get_conn():
     return mysql.connector.connect(
@@ -631,6 +631,41 @@ def profile(username):
                            already_follows=already_follows,
                            current_uid=current_uid,
                            nav_achievements=getCurrentUserAchievements())
+
+
+# ---------------------------------------------------------------------------
+# User search
+# ---------------------------------------------------------------------------
+
+@app.route('/search', methods=['GET'])
+def search_users():
+    q = request.args.get('q', '').strip()
+    results = []
+    if q:
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT user_id, username, bio FROM Users "
+            "WHERE username LIKE '%{0}%' ORDER BY username".format(q))
+        results = cursor.fetchall()
+        cursor.close()
+
+    # Which of the returned users does the current user already follow?
+    following_ids = set()
+    current_uid   = None
+    if flask_login.current_user.is_authenticated:
+        current_uid = getUserIdFromUsername(flask_login.current_user.id)
+        cursor = conn.cursor()
+        cursor.execute(
+            "SELECT followed_id FROM Follows WHERE follower_id = '{0}'".format(current_uid))
+        following_ids = {r[0] for r in cursor.fetchall()}
+        cursor.close()
+
+    return render_template('search.html',
+                           q=q,
+                           results=results,
+                           following_ids=following_ids,
+                           current_uid=current_uid,
+                           achievements=getCurrentUserAchievements())
 
 
 # ---------------------------------------------------------------------------
